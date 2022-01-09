@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Superbowl ADS </title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous">
+    <script src="data.js"></script>
+    <script type="text/javascript" src ="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script>
+        $(window).on('load', function () {
+
+        });
+        $(document).ready(function(){
+            $("#radar").hide();
+            $("#pie").click(function(){
+            
+            $(this).removeClass("col-12").addClass("col-6");
+            $("#radar").addClass("col-6").fadeIn();
+            
+            });
+
+
+
+
+
+
+            tagSet = new Set();
+
+            $(".tags").click(function(){
+                tag = $(this).data("tag");
+                if ($(this).hasClass("toggled")){
+                    $(this).removeClass("toggled");
+                    tagSet.delete(tag);
+                    console.log(tagSet);
+                }else{
+                    $(this).addClass("toggled");
+                    tagSet.add(tag);
+                    console.log(tagSet);
+                }
+                
+            });
+
+
+            $(".search").click(function(){
+                
+                t1 = table;
+                for (i of tagSet){
+                    a = [];
+                    t1.forEach(element => {
+                    
+                        if (element[i] == "TRUE"){
+                        a.push(element)
+                        //console.log(element);
+                        }
+                    });
+                    t1 = a;
+                    
+                }
+                //console.log(t1);
+                preproccesedresults = "<table class='table table-striped table-hover'><thead><tr><th>year</th><th>brand</th><th>video link</th></tr></thead><tbody>";
+                for (i of t1){
+                    console.log(i.superbowl_ads_dot_com_url);
+                    preproccesedresults = preproccesedresults + "<tr><td>" + i.year + "</td>" + "<td>" + i.brand + "</td>"  +  "<td><a href=" + i.superbowl_ads_dot_com_url + ">"+ i.title +"</a></td>" + "</tr>";
+                    
+                }
+                preproccesedresults = preproccesedresults + "</tbody></table>";
+                $(".results").html(preproccesedresults);
+            });
+
+
+
+        });
+        
+        $(document).click((event) => {
+        if (!$(event.target).closest('.pieholder').length) {
+            //console.log(event);
+            $("#pie").removeClass("col-6").addClass("col-12");
+            $("#radar").addClass("col-6").fadeOut();
+        }        
+    });
+    </script>
+    <style>
+        body{
+            background: ivory;
+            padding-bottom: 50px;
+        }
+        .tags{
+            height: 50px;
+            background-color: #aed1d6;
+            border-radius: 10px;
+            line-height: 50px;
+            text-align: center;
+            margin-top: 10px;
+            cursor: pointer;
+            font-size: 12px;
+            font-weight: bold;
+        }
+        .toggled{
+            background-color: #314570;
+            color: white;
+            font-weight: bold;
+        }
+        .search{
+            background-color: #314570;
+            height: 50px;
+            line-height: 50px;
+            text-align: center;
+            border-radius: 10px;
+            cursor: pointer;
+            color: white;
+        }
+        table tr td{
+            font-size: 12px;
+        }
+        .question-boxes{
+        text-align: center;
+        margin-top: 10px;
+        background-color: #E09873;  
+        height: 100px;
+        line-height: 30px;
+        border: ivory 2px solid;
+        border-radius: 5px;
+        font-size: 12px;
+        }
+        .brand-desc{
+            margin-top: -20px;
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-12" style="background: ivory;height: auto;padding-bottom: 10px;">
+                <h1 class="col-12" style="text-align: center;margin-top: 100px;">Super Bowl Ads and Americans Interests</h1>
+                
+                <h4 class="col-12" style="text-align: center;margin-top: 40px;">
+                233 ads from the 10 brands evaluated by using seven specific criteria, 
+                <br>
+                marking every criteria as a "yes" or "no" for each
+                </h4>
+                <div class="row justify-content-center" style="margin-top: 40px;margin-bottom: 100px;">
+                <div class="col-4 question-boxes">
+                <b>WAS IT TRYING TO BE FUNNY?</b>
+                <br>
+                <span class="d-none d-md-none d-sm-none d-lg-block">Is the ad jokey, goofy, weird or silly?</span>
+                </div>
+                <div class="col-4 question-boxes">
+                <b>IT SHOW THE PRODUCT RIGHT AWAY?</b><br>
+                <span class="d-none d-md-none d-sm-none d-lg-block">product was advertised within the first 10 seconds of the commercial?</span>
+                </div>
+                <div class="col-4 question-boxes">
+                <b>WAS IT PATRIOTIC?</b><br>
+                <span class="d-none d-md-none d-sm-none d-lg-block">patriotic appeal, either clear or subtle, or include American imagery?</span>
+                </div>
+                <div class="col-4 question-boxes">
+                <b>DID IT FEATURE A CELEBRITY?</b><br>
+                <span class="d-none d-md-none d-sm-none d-lg-block">Any celebrity we recognized</span>
+                </div>
+                <div class="col-4 question-boxes">
+                    <b>DID IT INVOLVE DANGER?</b><br>
+                    <span class="d-none d-md-none d-sm-none d-lg-block">Any violence, threats of violence, injuries, fighting or guns?</span>
+                </div>
+                <div class="col-4 question-boxes">
+                    <b>DID IT INCLUDE ANIMALS?</b><br>
+                    <span class="d-none d-md-none d-sm-none d-lg-block">An animal either real or computer-generated</span>
+                </div>
+                <div class="col-4 question-boxes">
+                    <b>DID IT USE SEX TO SELL ITS PRODUCT?</b><br>
+                    <span class="d-none d-md-none d-sm-none d-lg-block">Included any subtle or overt suggestions of sexuality, sex appeal or nudity.</span>
+                </div>
+                </div>
+                <hr>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-12" style="background: ivory;height: auto;padding-bottom: 20px;">
+                <div class="row justify-content-center" style="margin-top: 10px;margin-bottom: 0px;">
+                    <h4 class="col-12" style="text-align: center;margin-top: 0px;margin-bottom: 30px;">Select from categories and see appropriate link for videos</h4>
+                <div class="col-2 tags" data-tag="funny"><span class="d-none d-md-none d-sm-none d-lg-inline-block">&nbsp;funny</span></div>
+                <div class="col-2 tags" data-tag="patriotic"><span class="d-none d-md-none d-sm-none d-lg-inline-block">&nbsp;patriotic</span></div>
+                <div class="col-2 tags" data-tag="celebrity"><span class="d-none d-md-none d-sm-none d-lg-inline-block">&nbsp;celebrity</span></div>
+                <div class="col-2 tags" data-tag="danger"><span class="d-none d-md-none d-sm-none d-lg-inline-block">&nbsp;danger</span></div>
+                <div class="col-2 tags" data-tag="show_product_quickly"><span class="d-none d-md-none d-sm-none d-lg-inline-block">&nbsp;product showed quickly</span></div>
+                <div class="col-2 tags" data-tag="animals"><span class="d-none d-md-none d-sm-none d-lg-inline-block">&nbsp;animals</span></div>
+                <div class="col-2 tags" data-tag="use_sex"><span class="d-none d-md-none d-sm-none d-lg-inline-block">&nbsp;use of sex</span></div>
+                <div class="w-100"></div>
+                </div>
+                <div class="row justify-content-center" style="margin-top: 30px;margin-bottom: 20px;">
+                    <div class="col-2 search" data-bs-toggle="modal" data-bs-target="#videosModal">Search</div>
+                    
+                </div>
+                <hr>
+            </div>
+        </div>
+
+        <div class="row" style="height: auto;">
+            <div class="col-12 col-sm-6" style="background: ivory;height: 400px;">
+                <div class="row" style="margin-top: 10px;">
+                    <div class="col-12" style="margin-bottom: 20px;text-align: center;">
+                        Brands' Likes-dislikes <b>per 1000 views</b>
+                    </div>
+                    <div class="col-12" style="height: 300px;">
+                        <canvas id="likes-dislikes-chart" width="" height=""></canvas>
+                    </div>
+                </div>
+            </div>
+            <div class="col-12 col-sm-6" style="background: ivory;height: 400px;text-align: center;">
+                As can be seen, videos that used <b>animals</b> and tried to be <b>funny</b> were used the most by all brands, while categories like <b>patriotism</b> are used less. In the following we will have a look on how these categories are used by each brand. Click on brands and see the radar chart provided for that brand.                <div class="col-12" style="height: 250px;margin-top: 20px;">
+                    <canvas id="usedCategories" height="" width=""></canvas>
+                </div>
+            </div>
+            
+            <hr>
+        </div>
+
+        
+
+
+
+        <div class="row">
+            <div class="col-12" style="background: ivory;height: 100px;text-align: center;padding-top: 20px;">
+                On the contrary to the bar chart above <b>"likes/dislikes per 1000 views"</b> it appears that some brands like <b>‘Doritos’</b> had more likes and in total while it has less likes per 1000 views in the above chart.
+            </div>
+            <div id="pie" class="pieholder col-12" style="background: ivory;height: 350px;">
+                <canvas id="views-pie-chart" width="" height=""></canvas>
+            </div>
+            <div id="radar" class="pieholder" style="background: ivory;height: 350px;text-align: center;">
+                <div class="brand-desc">click on brands to see their total use of categoris</div>
+                <canvas id="radarchart" width="" height=""></canvas>
+            </div>
+        </div>
+    
+    </div>
+
+    <!-- Modal -->
+<div class="modal fade" id="videosModal" tabindex="-1" aria-labelledby="videosModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="videosModalLabel">watch the videos</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+            <div class="results"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/chartjs-plugin-datalabels/2.0.0/chartjs-plugin-datalabels.min.js" integrity="sha512-R/QOHLpV1Ggq22vfDAWYOaMd5RopHrJNMxi8/lJu8Oihwi4Ho4BRFeiMiCefn9rasajKjnx9/fTQ/xkWnkDACg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="calculation.js"></script>
+    <script src="charts_design.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js" integrity="sha384-W8fXfP3gkOKtndU4JGtKDvXbO53Wy8SZCQHczT5FMiiqmQfUpWbYdTil/SxwZgAN" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.min.js" integrity="sha384-skAcpIdS7UcVUC05LJ9Dxay8AXcDYfBJqt1CJ85S/CFujBsIzCIv+l9liuYLaMQ/" crossorigin="anonymous"></script>
+</body>
+</html>
